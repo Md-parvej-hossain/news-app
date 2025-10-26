@@ -1,12 +1,13 @@
-import React from 'react';
-import CatagoreNews from './CatagoreNews';
+
+import { use } from 'react';
+import { Navigate } from 'react-router';
+import { AuthContext } from '../provider/AutProvider';
 
 const Home = () => {
+  const { user } = use(AuthContext)
+  console.log(user);
   return (
-    <div>
-      <h1>This is a home pagess</h1>
-      
-    </div>
+   <Navigate to={'/category/1'}></Navigate>
   );
 };
 

@@ -1,9 +1,16 @@
+import { use } from 'react';
+import { AuthContext } from '../provider/AutProvider';
+
 const SocialLogin = () => {
+  const { googleLogin } = use(AuthContext);
   return (
     <div>
       <p className="font-semibold">Login With</p>
       <div className="mt-4 ">
-        <button className="btn btn-outline  btn-secondary border-[#e5e5e5] w-full">
+        <button
+          onClick={googleLogin}
+          className="btn btn-outline  btn-secondary border-[#e5e5e5] w-full"
+        >
           <svg
             aria-label="Google logo"
             width="16"

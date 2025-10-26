@@ -1,11 +1,10 @@
-import { use } from "react";
-import { NavLink } from "react-router";
+import { use } from 'react';
+import { NavLink } from 'react-router';
 
-const data =fetch("categories.json").then(res=>res.json())
+const data = fetch('categories.json').then(res => res.json());
 
 const Catagores = () => {
-  const cataData = use(data)
-  console.log(cataData);
+  const cataData = use(data);
   return (
     <div className="">
       <p className="font-semibold text-center">All Caterogy</p>

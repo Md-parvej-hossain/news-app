@@ -1,5 +1,6 @@
 import { CiBookmark } from 'react-icons/ci';
 import { CiShare2 } from 'react-icons/ci';
+import { FaStar } from 'react-icons/fa';
 import { IoEyeOutline } from 'react-icons/io5';
 const NewsCard = ({ news }) => {
   const {
@@ -69,36 +70,15 @@ const NewsCard = ({ news }) => {
       <div className="p-3">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3">
+            //dynamic rating 
             <div className="flex items-center flex-row gap-2">
-              <img
-                className="w-6"
-                src="https://img.icons8.com/?size=100&id=8ggStxqyboK5&format=png&color=000000"
-                alt=""
-              />
-              <img
-                className="w-6"
-                src="https://img.icons8.com/?size=100&id=8ggStxqyboK5&format=png&color=000000"
-                alt=""
-              />
-              <img
-                className="w-6"
-                src="https://img.icons8.com/?size=100&id=8ggStxqyboK5&format=png&color=000000"
-                alt=""
-              />
-              <img
-                className="w-6"
-                src="https://img.icons8.com/?size=100&id=8ggStxqyboK5&format=png&color=000000"
-                alt=""
-              />
-              <img
-                className="w-6"
-                src="https://img.icons8.com/?size=100&id=8ggStxqyboK5&format=png&color=000000"
-                alt=""
-              />
+              {Array.from({ length: rating.number }).map((_, i) => (
+                <FaStar className="text-amber-400" key={i}></FaStar>
+              ))}
               <p className="px-2">{rating.number}</p>
             </div>
           </div>
-          <button className='flex items-center gap-2'>
+          <button className="flex items-center gap-2">
             <IoEyeOutline></IoEyeOutline>
             {total_view}
           </button>

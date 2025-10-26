@@ -1,12 +1,15 @@
-import user from '../assets/user.png'
+import { Link } from 'react-router';
+import users from '../assets/user.png';
+
 const Navber = () => {
   const links = (
     <>
       <li>
-        <a>Home</a>
+        <Link to={''}>Home</Link>
       </li>
+
       <li>
-        <a >About</a>
+        <a>About</a>
       </li>
       <li>
         <a>Contact</a>
@@ -14,8 +17,9 @@ const Navber = () => {
     </>
   );
   return (
-    <div className="navbar bg-base-100 ">
+    <div className="navbar  ">
       <div className="navbar-start">
+        
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
             <svg
@@ -46,8 +50,10 @@ const Navber = () => {
         <ul className="menu menu-horizontal px-1">{links}</ul>
       </div>
       <div className="navbar-end">
-        <img src={user} alt="" className="px-5" />
-        <a className="btn bg-primary text-base-100 ">Login</a>
+        <img src={users} alt="" className="px-5 " />
+        <Link to={'/auth/login'} className="btn bg-primary text-base-100 ">
+          Login
+        </Link>
       </div>
     </div>
   );

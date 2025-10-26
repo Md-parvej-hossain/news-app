@@ -1,16 +1,32 @@
 import { use } from 'react';
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import { AuthContext } from '../provider/AutProvider';
 const Register = () => {
-  const {passwordAuthintication}=use(AuthContext)
+  const { passwordAuthintication, upadatProfile, setUser } = use(AuthContext);
+  const navigate = useNavigate();
   const handaleRegister = e => {
     e.preventDefault();
-    // const userName = e.target.name.value;
-    // const photoURL = e.target.photoURL.value;
+    const userName = e.target.name.value;
+    const photoURL = e.target.photoURL.value;
     const email = e.target.email.value;
     const password = e.target.password.value;
     // const user = { userName, photoURL, email, password };
-    passwordAuthintication(email,password)
+    passwordAuthintication(email, password)
+      .then(res => {
+        const user = res.user;
+        upadatProfile({ displayName: userName, photoURL: photoURL })
+          .then(() => {
+            setUser({ ...user, displayName: userName, photoURL: photoURL });
+          })
+          .catch(error => {
+            console.log(error);
+            setUser(user);
+          });
+        navigate('/category/1');
+      })
+      .catch(error => {
+        console.log(error);
+      });
   };
   return (
     <div className="flex min-h-[calc(100vh-100px)] justify-center items-center">

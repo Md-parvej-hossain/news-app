@@ -2,16 +2,16 @@ import { CiBookmark } from 'react-icons/ci';
 import { CiShare2 } from 'react-icons/ci';
 import { FaStar } from 'react-icons/fa';
 import { IoEyeOutline } from 'react-icons/io5';
+import { Link } from 'react-router';
 const NewsCard = ({ news }) => {
   const {
     image_url,
     details,
-    thumbnail_url,
-    tags,
     rating,
     title,
     total_view,
     author,
+    id,
   } = news;
   const formatedDate = new Date(author.published_date).toLocaleDateString();
   //  "author": {
@@ -58,9 +58,12 @@ const NewsCard = ({ news }) => {
           {details.length > 200 ? (
             <>
               {details.slice(0, 200)}...
-              <span className="text-primary font-semibold cursor-pointer hover:underline">
+              <Link
+                to={`/news-detals/${id}`}
+                className="text-primary font-semibold cursor-pointer hover:underline"
+              >
                 Read More
-              </span>
+              </Link>
             </>
           ) : (
             details
@@ -70,7 +73,7 @@ const NewsCard = ({ news }) => {
       <div className="p-3">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3">
-            //dynamic rating 
+            //dynamic rating
             <div className="flex items-center flex-row gap-2">
               {Array.from({ length: rating.number }).map((_, i) => (
                 <FaStar className="text-amber-400" key={i}></FaStar>

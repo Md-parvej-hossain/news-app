@@ -1,12 +1,13 @@
-import React from 'react';
-import { Outlet } from 'react-router';
+import { Outlet, useNavigation } from 'react-router';
 import Header from '../components/Header';
 import LatestNews from '../components/LatestNews';
 import Navber from '../components/Navber';
 import LeftAside from '../components/LeftAside';
 import RightAsid from '../components/RightAsid';
+import Loding from '../components/Loding';
 
 const HomeLayout = () => {
+  const { state } = useNavigation();
   return (
     <div>
       <header>
@@ -25,7 +26,7 @@ const HomeLayout = () => {
 
         <section className="col-span-6">
           <p className="font-semibold">Dragon News Home</p>
-          <Outlet></Outlet>
+          {state == 'loadig' ? <Loding /> : <Outlet></Outlet>}
         </section>
         <aside className="col-span-3 sticky top-2 h-fit">
           <RightAsid></RightAsid>

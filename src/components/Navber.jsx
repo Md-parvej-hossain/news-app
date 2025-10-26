@@ -1,11 +1,14 @@
 import { Link } from 'react-router';
 import users from '../assets/user.png';
+import { useContext } from 'react';
+import { AuthContext } from '../provider/AutProvider';
 
 const Navber = () => {
+  const { user, handelSinOut } = useContext(AuthContext);
   const links = (
     <>
       <li>
-        <Link to={''}>Home</Link>
+        <Link to={'/category/1'}>Home</Link>
       </li>
 
       <li>
@@ -18,8 +21,8 @@ const Navber = () => {
   );
   return (
     <div className="navbar  ">
+      <p>{user && user?.email}</p>
       <div className="navbar-start">
-        
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
             <svg
@@ -50,10 +53,24 @@ const Navber = () => {
         <ul className="menu menu-horizontal px-1">{links}</ul>
       </div>
       <div className="navbar-end">
-        <img src={users} alt="" className="px-5 " />
-        <Link to={'/auth/login'} className="btn bg-primary text-base-100 ">
-          Login
-        </Link>
+        {user?.photoURL ? (
+          <img src={user?.photoURL} alt="pro" className='w-14 h-14 object-cover rounded-full mx-2 ' />
+        ) : (
+          <img src={users} alt="pro" className="px-5 " />
+        )}
+
+        {user ? (
+          <button
+            onClick={handelSinOut}
+            className="btn bg-primary text-base-100 "
+          >
+            Logout
+          </button>
+        ) : (
+          <Link to={'/auth/login'} className="btn bg-primary text-base-100 ">
+            Login
+          </Link>
+        )}
       </div>
     </div>
   );

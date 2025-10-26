@@ -24,12 +24,8 @@ const CatagoreNews = () => {
     }
   }, [allData, id]);
   return (
-    <div>
-      <h1 className="font-bold">
-        Total <span className="text-secondary">{categoreNews.length}</span> News
-        Found
-      </h1>
-      <div className='grid grid-cols-1 gap-4'>
+    <div className="py-5">
+      <div className="grid grid-cols-1 gap-4">
         {categoreNews.map(news => (
           <NewsCard key={news.id} news={news}></NewsCard>
         ))}

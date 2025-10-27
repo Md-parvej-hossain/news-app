@@ -1,9 +1,12 @@
 import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
+  sendEmailVerification,
+  sendPasswordResetEmail,
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
+  
   updateProfile,
 } from 'firebase/auth';
 import { createContext, useEffect, useState } from 'react';
@@ -16,9 +19,8 @@ export const AuthContext = createContext(null);
 const AutProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-
-  console.log(loading, user);
   const provider = new GoogleAuthProvider();
+  
   const passwordAuthintication = (email, password) => {
     return createUserWithEmailAndPassword(auth, email, password);
   };
@@ -35,6 +37,27 @@ const AutProvider = ({ children }) => {
     return updateProfile(auth.currentUser, updateData);
   };
 
+  //forget password
+ const forgetPassword = (email) => {
+    //  const email = emailRaf.current.value;
+     sendPasswordResetEmail(auth, email)
+       .then(() => {
+         alert('Password resade email send Plese check your Email ');
+       })
+       .catch(error => {
+         const errorMessage = error.message;
+         console.log(errorMessage);
+       });
+  };    
+  
+
+  //user varefication 
+  const userVareficationEmail = () => {
+    sendEmailVerification(auth.currentUser).then(() => {
+      alert('Verification email sent');
+    });
+  }
+
   const handelSinOut = () => {
     return signOut(auth);
   };
@@ -49,6 +72,8 @@ const AutProvider = ({ children }) => {
     loading,
     setLoading,
     upadatProfile,
+    forgetPassword,
+    userVareficationEmail,
   };
 
   useEffect(() => {

@@ -2,7 +2,12 @@ import { use } from 'react';
 import { Link, useNavigate } from 'react-router';
 import { AuthContext } from '../provider/AutProvider';
 const Register = () => {
-  const { passwordAuthintication, upadatProfile, setUser } = use(AuthContext);
+  const {
+    passwordAuthintication,
+    upadatProfile,
+    setUser,
+    userVareficationEmail,
+  } = use(AuthContext);
   const navigate = useNavigate();
   const handaleRegister = e => {
     e.preventDefault();
@@ -13,6 +18,7 @@ const Register = () => {
     // const user = { userName, photoURL, email, password };
     passwordAuthintication(email, password)
       .then(res => {
+        userVareficationEmail();
         const user = res.user;
         upadatProfile({ displayName: userName, photoURL: photoURL })
           .then(() => {
@@ -22,7 +28,7 @@ const Register = () => {
             console.log(error);
             setUser(user);
           });
-        navigate('/category/1');
+        navigate('/');
       })
       .catch(error => {
         console.log(error);
@@ -62,10 +68,6 @@ const Register = () => {
               className="input"
               placeholder="Enter your password"
             />
-
-            <div>
-              <a className="link link-hover">Forgot password?</a>
-            </div>
 
             <button type="submit" className="btn btn-neutral mt-4">
               Register

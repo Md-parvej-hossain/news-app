@@ -1,23 +1,36 @@
 import { use } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router';
 import { AuthContext } from '../provider/AutProvider';
+import { useRef } from 'react';
 
 const Login = () => {
-  const { loginAuthintication } = use(AuthContext);
+  const { loginAuthintication, forgetPassword } = use(AuthContext);
   const location = useLocation();
   const navigate = useNavigate();
+  const emailRaf = useRef();
 
   const handaleLogin = e => {
     e.preventDefault();
     const email = e.target.email.value;
     const password = e.target.password.value;
     loginAuthintication(email, password)
-      .then(() => {
-        navigate(`${location.state ? location.state : '/'}`);
+      .then(resuld => {
+        //varifi email
+        if (!resuld.user.emailVerified) {
+          return alert('Please verify your email before login');
+        } else {
+          navigate(`${location.state ? location.state : '/'}`);
+        }
+        
       })
       .catch(error => {
         console.log(error);
       });
+  };
+
+  const handelForgtpassword = () => {
+    const email = emailRaf.current.value;
+    forgetPassword(email);
   };
 
   return (
@@ -30,6 +43,7 @@ const Login = () => {
             <input
               type="email"
               name="email"
+              ref={emailRaf}
               className="input"
               placeholder="Enter your email address"
             />
@@ -41,7 +55,9 @@ const Login = () => {
               placeholder="Enter your password"
             />
             <div>
-              <a className="link link-hover">Forgot password?</a>
+              <a onClick={handelForgtpassword} className="link link-hover">
+                Forgot password?
+              </a>
             </div>
 
             <button type="submit" className="btn btn-neutral mt-4">

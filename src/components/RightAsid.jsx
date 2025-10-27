@@ -1,11 +1,14 @@
+import { useContext } from 'react';
 import FindUs from './FindUs';
 import Qzone from './Qzone';
 import SocialLogin from './SocialLogin';
+import { AuthContext } from '../provider/AutProvider';
 
 const RightAsid = () => {
+  const { user } = useContext(AuthContext);
   return (
     <div className="space-y-8">
-      <SocialLogin></SocialLogin>
+      {user ? '' : <SocialLogin></SocialLogin>}
       <FindUs></FindUs>
       <Qzone></Qzone>
     </div>
